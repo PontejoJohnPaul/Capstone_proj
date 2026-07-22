@@ -1,10 +1,10 @@
 #ifndef CREDENTIALS_H
 #define CREDENTIALS_H
 
-#define WIFI_SSID "jp"
+#define WIFI_SSID "wifi_name"
 
-#define WIFI_PASSWORD "00000001"
+#define WIFI_PASSWORD "wifi password here"
 
-#define SERVER_URL "http://10.247.61.102/grainsense/api/"
+#define SERVER_URL "http://192.10.x.x/example_grainsense/api"
 
 #endif
