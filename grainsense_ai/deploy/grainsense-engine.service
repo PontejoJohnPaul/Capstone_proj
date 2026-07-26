@@ -1,0 +1,16 @@
+[Unit]
+Description=GrainSense AI - Background Engine (Real-time + Historical AI)
+After=network.target mysql.service
+
+[Service]
+Type=simple
+# Adjust this path to wherever you deploy the project on the VPS
+WorkingDirectory=/opt/grainsense_ai
+ExecStart=/opt/grainsense_ai/venv/bin/python ai_engine.py
+Restart=always
+RestartSec=5
+User=www-data
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
