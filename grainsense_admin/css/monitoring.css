@@ -1,0 +1,59 @@
+/* ===== Live Monitoring Page Styles ===== */
+
+#monitoringContainer .monitor-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#monitoringContainer .monitor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+}
+
+#monitoringContainer .monitor-card .card-body h5 {
+    margin-bottom: 0.25rem;
+}
+
+#monitoringContainer .status-badge {
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#monitoringContainer .status-badge.bg-secondary {
+    background-color: #6c757d !important;
+}
+
+#monitoringContainer .reading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+}
+
+#monitoringContainer .reading-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+#monitoringContainer .reading-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1F6B2C;
+}
+
+#monitoringContainer .last-updated {
+    font-size: 0.78rem;
+    color: #9aa0a6;
+}
+
+#monitoringContainer .monitor-card.offline .status-badge {
+    background-color: #6c757d !important;
+}
+
+#monitoringContainer .monitor-card.offline .reading-value {
+    color: #9aa0a6;
+}

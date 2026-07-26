@@ -1,0 +1,623 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+:root {
+    --forest-900: #0F2818;
+    --forest-800: #1B4332;
+    --forest-600: #2D6A4F;
+    --gold-500: #D9A441;
+    --gold-100: #FBF1DD;
+    --clay-500: #D97748;
+    --sky-500: #2E9BC7;
+    --leaf-500: #4C9A2A;
+    --bg: #F2F4EF;
+    --card-bg: #FFFFFF;
+    --ink: #172420;
+    --muted: #64766B;
+    --border: #E3E7DF;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    height: 100%;
+    overscroll-behavior-y: none;
+    /* stops the rubber-band/bounce scroll that reveals a blank gap at the top */
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    background: linear-gradient(180deg, var(--forest-900) 0%, var(--forest-800) 100%);
+    color: white;
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ----- Brand lockup (logo + name) ----- */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 4px 20px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.sidebar-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sidebar-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.sidebar-brand-name {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: .2px;
+}
+
+.sidebar-brand-tag {
+    font-size: .68rem;
+    color: #D9A441;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* ----- Nav links ----- */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 3px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, .72);
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+    font-size: .92rem;
+    font-weight: 500;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.sidebar-nav a i {
+    font-size: 1.05rem;
+    width: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, .5);
+    transition: color .2s ease;
+}
+
+.sidebar-nav a:hover {
+    background: rgba(255, 255, 255, .06);
+    color: #ffffff;
+}
+
+.sidebar-nav a:hover i {
+    color: #D9A441;
+}
+
+.sidebar-nav a.active {
+    background: rgba(217, 164, 65, .14);
+    border-left-color: #D9A441;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.sidebar-nav a.active i {
+    color: #D9A441;
+}
+
+/* ----- Footer (Logout, pinned to bottom) ----- */
+.sidebar-footer {
+    padding-top: 14px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.sidebar-logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, .65);
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+    font-size: .92rem;
+    font-weight: 500;
+    transition: background .2s ease, color .2s ease;
+}
+
+.sidebar-logout i {
+    font-size: 1.05rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-logout:hover {
+    background: rgba(220, 38, 38, .14);
+    color: #fca5a5;
+}
+
+/* ===== Sidebar Toggle (hamburger) & Backdrop =====
+   Hidden by default (desktop). Only shown on mobile via
+   the media query below. Fixed position so it floats over
+   whatever page content is loaded, without needing markup
+   changes on every individual page. */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1050;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 10px;
+    background: #1B4332;
+    color: white;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+    cursor: pointer;
+}
+
+.sidebar-toggle:hover {
+    background: #2D6A4F;
+}
+
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    z-index: 1030;
+    opacity: 0;
+    transition: opacity .25s ease;
+}
+
+.sidebar-backdrop.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ===== Content ===== */
+.content {
+    flex: 1;
+    padding: 30px;
+    min-width: 0;
+    /* prevents flex child from overflowing parent on narrow screens */
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.topbar h2 {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    color: var(--forest-800);
+    margin: 0;
+    font-size: 1.7rem;
+}
+
+.topbar-subtitle {
+    margin: 2px 0 0;
+    font-size: .85rem;
+    color: var(--muted);
+}
+
+/* ----- Welcome / user chip ----- */
+.welcome-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--forest-600), var(--forest-800));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: .9rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+
+.user-label {
+    font-size: .7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.user-info strong {
+    color: var(--ink);
+    font-size: .92rem;
+    font-weight: 600;
+}
+
+/* ===== Cards (base) ===== */
+.card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(15, 40, 24, .06);
+}
+
+/* ===== Dashboard Summary Cards ===== */
+.dashboard-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 2px 10px rgba(15, 40, 24, .06);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 16px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(15, 40, 24, .1);
+}
+
+.dashboard-card .icon-circle {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    flex-shrink: 0;
+    /* FIX: keeps the icon from shrinking/squishing the row on narrow cards */
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.dashboard-card .icon-circle.temperature {
+    background: linear-gradient(135deg, #E8935C, var(--clay-500));
+}
+
+.dashboard-card .icon-circle.humidity {
+    background: linear-gradient(135deg, #4FC1EE, var(--sky-500));
+}
+
+.dashboard-card .icon-circle.moisture {
+    background: linear-gradient(135deg, #6FBF3E, var(--leaf-500));
+}
+
+/* ----- Sensor count cards (Total / Online / No Signal / Disabled) ----- */
+.dashboard-card .icon-circle.total-sensors {
+    background: linear-gradient(135deg, var(--forest-600), var(--forest-800));
+}
+
+.dashboard-card .icon-circle.online-sensors {
+    background: linear-gradient(135deg, #6FBF3E, var(--leaf-500));
+}
+
+.dashboard-card .icon-circle.no-signal-sensors {
+    background: linear-gradient(135deg, #E8C468, var(--gold-500));
+}
+
+.dashboard-card .icon-circle.disabled-sensors {
+    background: linear-gradient(135deg, #B7C0B9, #9AA79C);
+}
+
+.dashboard-card .card-info {
+    min-width: 0;
+    /* FIX: allows text to wrap/truncate instead of forcing the card to overflow or the layout to break */
+}
+
+.dashboard-card .card-info h5 {
+    margin: 0;
+    font-size: .78rem;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.dashboard-card .card-info h2 {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    margin: 4px 0 0 0;
+    font-weight: 700;
+    color: var(--forest-800);
+}
+
+/* ----- Last update row + live pulse ----- */
+.last-update-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--leaf-500);
+    animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 154, 42, .55);
+    }
+
+    70% {
+        box-shadow: 0 0 0 6px rgba(76, 154, 42, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 154, 42, 0);
+    }
+}
+
+/* ===== Batch & Live Sensors Cards ===== */
+.card-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.card-header-row h4 {
+    margin: 0;
+}
+
+.sensor-filter-select {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.sensor-filter-select:hover {
+    border-color: var(--forest-600);
+}
+
+.sensor-filter-select:focus {
+    outline: none;
+    border-color: var(--forest-600);
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, .12);
+}
+
+.card.p-4 h4 {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    color: var(--forest-800);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+}
+
+.card.p-4 h4 i {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: var(--gold-100);
+    color: var(--gold-500);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.card.p-4 hr {
+    border-color: var(--border);
+    opacity: 1;
+}
+
+.card.p-4 p strong {
+    color: #495057;
+}
+
+.table th {
+    color: var(--muted);
+    font-size: .78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    border-bottom-width: 1px;
+    border-color: var(--border);
+}
+
+.table td {
+    vertical-align: middle;
+    border-color: var(--border);
+    font-size: .92rem;
+}
+
+.table tbody tr:hover {
+    background: var(--bg);
+}
+
+.badge {
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+/* Recolor Bootstrap's default badge/text utilities to match the brand palette */
+.badge.bg-success {
+    background-color: var(--leaf-500) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--gold-500) !important;
+    color: #3A2A05 !important;
+}
+
+.badge.bg-secondary {
+    background-color: #9AA79C !important;
+    color: #ffffff !important;
+}
+
+.table .text-danger {
+    color: var(--clay-500) !important;
+}
+
+.table .text-success {
+    color: var(--leaf-500) !important;
+}
+
+.table .text-muted {
+    color: #9AA79C !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================= */
+
+/* ----- Tablets and below: sidebar becomes an off-canvas
+   drawer triggered by the hamburger button ----- */
+@media (max-width: 992px) {
+
+    .sidebar-toggle {
+        display: flex;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1040;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        box-shadow: 4px 0 16px rgba(0, 0, 0, .2);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .content {
+        width: 100%;
+        padding: 20px 16px;
+        padding-top: 80px;
+        /* room so page titles don't sit under the fixed hamburger button */
+    }
+
+    .topbar h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* ----- Small tablets / large phones ----- */
+@media (max-width: 768px) {
+
+    .content {
+        padding: 16px 14px;
+        padding-top: 76px;
+    }
+
+    .dashboard-card {
+        padding: 18px;
+    }
+
+    .card.p-4 {
+        padding: 1.25rem !important;
+    }
+
+    .table {
+        font-size: .9rem;
+    }
+}
+
+/* ----- Phones: stack the icon above the text on the summary
+   cards instead of letting the row get cramped ----- */
+@media (max-width: 480px) {
+
+    .dashboard-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding: 20px 16px;
+    }
+
+    .dashboard-card .icon-circle {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 1.3rem;
+    }
+
+    .dashboard-card .card-info h2 {
+        font-size: 1.4rem;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sidebar {
+        width: 240px;
+    }
+}
