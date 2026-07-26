@@ -1,0 +1,418 @@
+/* ============================================================
+   GrainSense — Sensor Management
+   Token system:
+   --gs-deep:   #0F3D1C  (deep grain green — headers, emphasis)
+   --gs-leaf:   #1F6B2C  (primary green — actions, links)
+   --gs-sage:   #A5D6A7  (soft sage — tints, hovers)
+   --gs-gold:   #D9A441  (grain gold — signature accent, disabled state)
+   --gs-paper:  #F7F5F1  (warm paper background)
+   --gs-ink:    #1C2B22  (text)
+   ============================================================ */
+
+:root {
+    --gs-deep: #0F3D1C;
+    --gs-leaf: #1F6B2C;
+    --gs-sage: #A5D6A7;
+    --gs-gold: #D9A441;
+    --gs-paper: #F7F5F1;
+    --gs-ink: #1C2B22;
+}
+
+/* ---------- Page background ---------- */
+.content {
+    background: var(--gs-paper);
+}
+
+/* ---------- Sensor card ---------- */
+.sensor-card {
+    position: relative;
+    border: none;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 61, 28, .06), 0 8px 24px rgba(15, 61, 28, .07);
+    transition: transform .25s ease, box-shadow .25s ease;
+    overflow: hidden;
+}
+
+/* Signature left accent bar — color reflects current status */
+.sensor-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--gs-gold);
+    transition: background .25s ease;
+}
+
+.sensor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(15, 61, 28, .08), 0 14px 30px rgba(15, 61, 28, .12);
+}
+
+/* When the card contains an "Enabled" badge, light up the accent bar green */
+.sensor-card:has(.badge.bg-success)::before {
+    background: var(--gs-leaf);
+}
+
+.sensor-card .card-body {
+    padding: 1.5rem 1.5rem 1.5rem 1.65rem;
+}
+
+/* ---------- Card header row ---------- */
+.sensor-card .card-body h5 {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--gs-ink);
+    letter-spacing: -.01em;
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+}
+
+/* Icon (emoji) gets its own soft circular chip instead of sitting bare in the title */
+.sensor-card .card-body h5> :first-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--gs-sage);
+    font-size: 1.05rem;
+}
+
+/* ---------- Status badge ---------- */
+.sensor-card .badge {
+    font-weight: 600;
+    font-size: .7rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: .4em .7em;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: .5rem;
+}
+
+.sensor-card .badge.bg-success {
+    background: var(--gs-leaf) !important;
+}
+
+.sensor-card .badge.bg-secondary {
+    background: #E7E2D8 !important;
+    color: #8A7F6A !important;
+}
+
+/* ---------- Divider ---------- */
+.sensor-card hr {
+    margin: 1rem 0;
+    border: none;
+    border-top: 1px solid #EFEAE0;
+}
+
+/* ---------- Data rows (Code / Pin / Type) ---------- */
+.sensor-card .card-body p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .875rem;
+    color: #5C6B60;
+    margin-bottom: .55rem;
+}
+
+.sensor-card .card-body p strong {
+    color: var(--gs-ink);
+    font-weight: 600;
+}
+
+/* ---------- Action buttons ---------- */
+.sensor-card .btn {
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: .875rem;
+    padding: .55rem 1rem;
+    transition: filter .2s ease, transform .15s ease;
+}
+
+.sensor-card .btn:active {
+    transform: scale(.98);
+}
+
+.sensor-card .btn-success {
+    background: var(--gs-leaf);
+}
+
+.sensor-card .btn-success:hover {
+    filter: brightness(1.08);
+}
+
+.sensor-card .btn-warning {
+    background: var(--gs-gold);
+    color: #3A2B0A;
+}
+
+.sensor-card .btn-warning:hover {
+    filter: brightness(1.06);
+    color: #3A2B0A;
+}
+
+.sensor-card .btn-danger {
+    background: #fff;
+    color: #B3433A;
+    border: 1.5px solid #F1DAD7;
+}
+
+.sensor-card .btn-danger:hover:not(:disabled) {
+    background: #FBEEEC;
+}
+
+.sensor-card .btn-danger:disabled {
+    background: #fff;
+    color: #C9C2B7;
+    border-color: #EFEAE0;
+    opacity: 1;
+}
+
+/* ---------- Add-card placeholder (if used elsewhere) ---------- */
+.add-card {
+    border: 2px dashed var(--gs-sage);
+    border-radius: 16px;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gs-leaf);
+    transition: .25s ease;
+}
+
+.add-card:hover {
+    background: #F1FFF7;
+    border-color: var(--gs-leaf);
+    cursor: pointer;
+}
+
+/* ---------- Search + Filter toolbar ---------- */
+.sensor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ---------- Add Sensor modal (sensor selection step) ---------- */
+#addSensorModal .modal-content {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(15, 61, 28, .18);
+    overflow: hidden;
+}
+
+#addSensorModal .modal-header {
+    border-bottom: 1px solid #EFEAE0;
+    padding: 1.25rem 1.5rem 1rem;
+}
+
+#addSensorModal .modal-header h5 {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--gs-deep);
+    margin: 0;
+}
+
+#addSensorModal .modal-header h5 i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--gs-sage);
+    color: var(--gs-leaf);
+    font-size: 1rem;
+}
+
+#addSensorModal .modal-header .btn-close {
+    box-shadow: none;
+    opacity: .5;
+}
+
+#addSensorModal .modal-header .btn-close:hover {
+    opacity: .8;
+}
+
+#addSensorModal .modal-body {
+    padding: 1.35rem 1.5rem;
+}
+
+#addSensorModal .form-label {
+    font-weight: 600;
+    font-size: .85rem;
+    color: var(--gs-ink);
+    margin-bottom: .45rem;
+}
+
+#addSensorModal .form-select {
+    width: 100%;
+    font-family: inherit;
+    font-size: .875rem;
+    color: var(--gs-ink);
+    background-color: #ffffff;
+    border: 1px solid #E7E2D8;
+    border-radius: 10px;
+    padding: .6rem .9rem;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#addSensorModal .form-select:focus {
+    outline: none;
+    border-color: var(--gs-leaf);
+    box-shadow: 0 0 0 3px rgba(31, 107, 44, .12);
+}
+
+#addSensorModal small.text-muted {
+    display: block;
+    margin-top: .65rem;
+    font-size: .78rem;
+    line-height: 1.45;
+    color: #8A9A8F !important;
+}
+
+#addSensorModal .modal-footer {
+    border-top: 1px solid #EFEAE0;
+    padding: 1rem 1.5rem 1.25rem;
+}
+
+#addSensorModal .modal-footer .btn {
+    min-width: 100px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: .875rem;
+    padding: .55rem 1.1rem;
+}
+
+#addSensorModal .btn-success {
+    background: var(--gs-leaf);
+    border-color: var(--gs-leaf);
+}
+
+#addSensorModal .btn-success:hover {
+    filter: brightness(1.08);
+}
+
+#addSensorModal .btn-secondary {
+    background: #EFEAE0;
+    border-color: #EFEAE0;
+    color: var(--gs-ink);
+}
+
+#addSensorModal .btn-secondary:hover {
+    background: #E3DDCF;
+    border-color: #E3DDCF;
+    color: var(--gs-ink);
+}
+
+/* ---------- Search box ---------- */
+.sensor-search-box {
+    position: relative;
+    flex: 1 1 260px;
+    max-width: 340px;
+}
+
+.sensor-search-box i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #8A9A8F;
+    font-size: .9rem;
+}
+
+.sensor-search-box input {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: .875rem;
+    color: var(--gs-ink);
+    background: #ffffff;
+    border: 1px solid #E7E2D8;
+    border-radius: 10px;
+    padding: .6rem .9rem .6rem 2.2rem;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.sensor-search-box input::placeholder {
+    color: #9AA79C;
+}
+
+.sensor-search-box input:focus {
+    outline: none;
+    border-color: var(--gs-leaf);
+    box-shadow: 0 0 0 3px rgba(31, 107, 44, .12);
+}
+
+/* ---------- Status filter ---------- */
+.sensor-status-filter {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    background: #ffffff;
+    padding: .35rem;
+    border-radius: 12px;
+    border: 1px solid #E7E2D8;
+    box-shadow: 0 1px 2px rgba(15, 61, 28, .05);
+}
+
+.status-filter-btn {
+    font-family: inherit;
+    font-size: .82rem;
+    font-weight: 600;
+    color: #6B7A70;
+    background: transparent;
+    border: none;
+    border-radius: 9px;
+    padding: .5rem 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s ease, color .2s ease;
+}
+
+.status-filter-btn:hover {
+    background: var(--gs-paper);
+    color: var(--gs-ink);
+}
+
+.status-filter-btn.active {
+    background: var(--gs-leaf);
+    color: #ffffff;
+}
+
+.status-filter-btn.active:hover {
+    background: var(--gs-leaf);
+    color: #ffffff;
+}
+
+/* ---------- Page heading area ---------- */
+.content h2.fw-bold {
+    color: var(--gs-deep);
+}
+
+/* Top "Add Sensor" button matches the warm/leaf identity */
+.btn-success {
+    background-color: var(--gs-leaf);
+    border-color: var(--gs-leaf);
+}
+
+.btn-success:hover {
+    background-color: #19551f;
+    border-color: #19551f;
+}

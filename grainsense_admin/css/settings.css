@@ -1,0 +1,48 @@
+.settings-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    height: 100%;
+}
+
+.settings-card h4 {
+    font-weight: 700;
+    color: #1B4332;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.settings-card .form-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: .9rem;
+}
+
+.settings-card .form-control {
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+.settings-card .form-control:focus {
+    border-color: #2D6A4F;
+    box-shadow: 0 0 0 .2rem rgba(45, 106, 79, .15);
+}
+
+.settings-card .btn {
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-weight: 600;
+}
+
+.settings-card .btn-success {
+    background-color: #1F6B2C;
+    border-color: #1F6B2C;
+}
+
+.settings-card .btn-warning {
+    color: #fff;
+    background-color: #d97706;
+    border-color: #d97706;
+}

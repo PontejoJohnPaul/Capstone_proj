@@ -1,0 +1,262 @@
+/* ==========================================================
+   farmers.css
+   Page-specific styles for Farmer Management (farmers.php).
+   Built on top of the GrainSense design system already
+   defined globally in dashboard.css (loaded via header.php):
+   forest/gold palette, Poppins headings, Inter body, and the
+   shared .card / .card-header-row / .table / .topbar /
+   .welcome-user / .user-avatar classes.
+
+   The :root block below simply mirrors dashboard.css's tokens
+   so this file still renders correctly even if loaded before
+   dashboard.css in the page — values are identical, so there
+   is no visual conflict either way.
+   ========================================================== */
+
+:root {
+    --forest-900: #0F2818;
+    --forest-800: #1B4332;
+    --forest-600: #2D6A4F;
+    --gold-500: #D9A441;
+    --gold-100: #FBF1DD;
+    --clay-500: #D97748;
+    --sky-500: #2E9BC7;
+    --leaf-500: #4C9A2A;
+    --bg: #F2F4EF;
+    --card-bg: #FFFFFF;
+    --ink: #172420;
+    --muted: #64766B;
+    --border: #E3E7DF;
+}
+
+/* Top "Add Farmer" button — mirrors sensors.css: a global .btn-success
+   override so the plain Bootstrap button classes pick up the brand color */
+.btn-success {
+    background-color: var(--forest-600);
+    border-color: var(--forest-600);
+}
+
+.btn-success:hover {
+    background-color: var(--forest-800);
+    border-color: var(--forest-800);
+}
+
+/* ---------- Table (horizontal borders only, no vertical lines) ---------- */
+.farmers-table {
+    border-collapse: collapse;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.farmers-table thead th,
+.farmers-table tbody td {
+    border: none;
+    border-bottom: 1px solid #D3DACC;
+}
+
+.farmers-table thead th {
+    white-space: nowrap;
+    border-bottom: 2px solid var(--forest-600);
+}
+
+.farmers-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Full name cell with initial avatar (mirrors .user-avatar in the topbar) */
+.farmer-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.farmer-avatar {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--forest-600), var(--forest-800));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.farmer-name-text {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* Farm name cell (icon + text, matching the sensor row style) */
+.farmers-cell-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+}
+
+.farmers-cell-icon i {
+    color: var(--gold-500);
+    font-size: 0.95rem;
+}
+
+/* Search-match highlight, applied by farmers.js */
+.farmers-table mark {
+    background-color: var(--gold-100);
+    color: var(--forest-800);
+    padding: 0 2px;
+    border-radius: 3px;
+}
+
+/* Row hidden by the live search filter (see farmers.js) */
+.farmers-table tbody tr.farmers-row-hidden {
+    display: none;
+}
+
+/* "No results" row injected by farmers.js */
+.farmers-no-results td {
+    text-align: center;
+    color: var(--muted);
+    font-style: italic;
+    padding: 32px 0;
+}
+
+.farmers-table td.text-muted.text-center {
+    padding: 32px 0;
+    font-style: italic;
+}
+
+/* ---------- Add Farmer modal ---------- */
+#addFarmerModal .modal-content {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+#addFarmerModal .modal-header {
+    background: var(--gold-100);
+    border-bottom: 1px solid var(--border);
+}
+
+#addFarmerModal .modal-header h5 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--forest-800);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+#addFarmerModal .modal-header h5 i {
+    color: var(--gold-500);
+}
+
+#addFarmerModal .form-label {
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--muted);
+}
+
+#addFarmerModal .form-control {
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+#addFarmerModal .form-control:focus {
+    border-color: var(--forest-600);
+    box-shadow: 0 0 0 3px rgba(45, 106, 79, .12);
+}
+
+#addFarmerModal .modal-footer {
+    border-top: 1px solid var(--border);
+}
+
+#addFarmerModal .btn-secondary {
+    border-radius: 10px;
+    background: #9AA79C;
+    border-color: #9AA79C;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 992px) {
+
+    .farmers-table thead th,
+    .farmers-table tbody td {
+        padding: 10px;
+    }
+}
+
+/* Collapse the table into stacked cards on small screens,
+   matching the app's existing card-based mobile pattern */
+@media (max-width: 768px) {
+    .farmers-table thead {
+        display: none;
+    }
+
+    .farmers-table,
+    .farmers-table tbody,
+    .farmers-table tr,
+    .farmers-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .farmers-table tbody tr {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 12px;
+        padding: 6px 4px;
+        box-shadow: 0 2px 10px rgba(15, 40, 24, .06);
+    }
+
+    .farmers-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        text-align: right;
+        border: none;
+        border-bottom: 1px solid var(--bg);
+        padding: 10px 14px;
+    }
+
+    .farmers-table tr td:last-child {
+        border-bottom: none;
+    }
+
+    .farmers-table td[data-label]::before {
+        content: attr(data-label);
+        font-weight: 600;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        color: var(--muted);
+        text-align: left;
+    }
+
+    .farmers-table td[colspan] {
+        text-align: center;
+    }
+
+    .farmers-table td[colspan]::before {
+        content: none;
+    }
+
+    .farmer-name-cell {
+        justify-content: flex-end;
+    }
+
+    .farmers-no-results td::before {
+        content: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .farmers-table {
+        font-size: 0.85rem;
+    }
+}
