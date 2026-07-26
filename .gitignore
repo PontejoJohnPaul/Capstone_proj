@@ -1,0 +1,59 @@
+# ==== Node / Expo / React Native ====
+node_modules/
+.expo/
+.expo-shared/
+dist/
+web-build/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+.env
+.env.local
+.env.*.local
+
+# Metro bundler
+.metro-health-check*
+
+# ==== PHP / Web Admin Panel ====
+vendor/
+*.log
+config.local.php
+/uploads/*
+!/uploads/.gitkeep
+
+# ==== Python / AI Engine ====
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/
+env/
+.venv/
+*.egg-info/
+.pytest_cache/
+*.env
+
+# ==== Arduino / ESP32 ====
+*.hex
+*.bin
+build/
+.pio/
+.vscode/
+
+# ==== Databases / Secrets ====
+*.sql.bak
+*.sqlite
+*.db
+credentials.json
+secrets.json
+
+# ==== OS / Editor junk ====
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+*.iml
